@@ -3,6 +3,9 @@
   标记*号的为重点，面试前要多加复习。
   参考链接：https://juejin.cn/post/6905294475539513352#heading-2
 
+  本地启动node服务器 => 终端进入目标文件夹，然后在终端输入 http-server
+   http-server -c-1 （只输入http-server的话，更新了代码后，页面不会同步更新）
+
 ```
 
 # 1. src和href的区别 *
@@ -106,4 +109,56 @@
 （4）canvas（画布）、Geolocation（地理定位）、websocket（通信协议）
 （5）input标签新增属性：placeholder、autocomplete、autofocus、required
 （6）history API：go、forward、back、pushstate
+```
+
+# 7. Web worker *
+```txt
+  参考链接：https://juejin.cn/post/7176788060619669565
+  相关demo可参考webwork目录
+  常规使用 index.html => worker.js
+  使用场景 => 处理大量CPU耗时计算操作 => calc.html => calc-worker.js
+
+  概述：Web Worker的作用, 就是为javascript创造多线程环境，[允许主线程创建Worker线程，将一些任务分配给后者运行]。这样的好处是，一些计算密集型或高延迟的任务，被Worker线程负担了，主流程
+  就会很流畅，不会被阻塞或拖慢.
+
+  使用限制：
+    (1) 同源限制：  分配给 Worker 线程运行的脚本文件，必须与主线程的脚本文件同源。
+    (2) 文件限制：  Worker 线程无法读取本地文件（file://），会拒绝使用 file 协议来创建 Worker实例，它所加载的脚本，必须来自网络。
+    (3) DOM操作限制： Worker 线程所在的全局对象，与主线程不一样.无法读取主线程所在网页的 DOM 对象, 无法使用document、window、parent这些对象.
+    (4) 通信限制： Worder线程和主线程不在同一个上下文环境，它们不能直接通信，必须通过消息完成，交互的方法分别是postMessage和onMessage, 并且在数据传递的时候，Worker是使用拷贝的方式。
+    (5) 脚本限制：Worker 线程不能执行alert()和confirm()，但可以使用ajax请求,setTimeout、setInterval等API.
+```
+
+```js
+  const worker = new Worker(aURL, options);
+  // worker.postMessage: 向 worker 的内部作用域发送一个消息，消息可由任何 JavaScript 对象组成
+  // worker.terminate: 立即终止 worker。该方法并不会等待 worker 去完成它剩余的操作；worker 将会被立刻停止
+  // worker.onmessage:当 worker 的父级接收到来自其 worker 的消息时，会在 Worker 对象上触发 message 事件
+  // worker.onerror: 当 worker 出现运行中错误时，它的 onerror 事件处理函数会被调用。它会收到一个扩展了 ErrorEvent 接口的名为 error 的事件
+```
+
+```txt
+  Web Worker 的执行上下文名称是 self | this，无法调用主线程的 window 对象的。
+  Worker线程内部要加载其他脚本，可以使用 importScripts()
+```
+```js
+  importScripts("constants.js");
+  // self 代表子线程自身，即子线程的全局对象
+  self.addEventListener("message", function (e) {
+    self.postMessage(foo); // 可拿到 `foo`、`getAge()`、`getName`的结果值 
+  });
+
+  // constants.js
+  const foo = "变量";
+
+  function getAge() {
+    return 25;
+  }
+
+  const getName = () => {
+    return "jacky";
+  };
+
+  // 还可以同时加载多个脚本
+  importScripts('script1.js', 'script2.js');
 ```

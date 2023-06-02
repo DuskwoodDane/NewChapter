@@ -10,11 +10,19 @@
 
 <body>
   <script>
-    const worker = new Worker('');
+    // const worker = new Worker('https://github.com/DuskwoodDane/NewChapter/blob/main/basic/HTML/webwork/worker.js');
+    const worker = new Worker('./worker.js');
 
     worker.onmessage = (e) => {
       console.log('主线程收到worker线程消息：', e);
       console.log('data==', e.data);
+    }
+
+    worker.onerror = (e) => {
+      console.log('error', e)
+      console.log(e.message) // 可读性良好的错误消息
+      console.log(e.filename) // 发生错误的脚本文件名
+      console.log(e.lineno) // 发生错误时所在脚本文件的行号
     }
 
     worker.postMessage('主线程发送==== Hello World')
