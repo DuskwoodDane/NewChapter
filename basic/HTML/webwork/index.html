@@ -9,9 +9,19 @@
 </head>
 
 <body>
+  <script id="worker" type="javascript/worker">
+    this.addEventListener('message', (e) => { // Web Worker 的执行上下文名称是 self，无法调用主线程的 window 对象的
+      console.log('wokerEvent', self, e);
+      postMessage(`Blob worker线程接收到的消息：：：${e.data}`)
+    })
+  </script>
   <script>
     // const worker = new Worker('https://github.com/DuskwoodDane/NewChapter/blob/main/basic/HTML/webwork/worker.js');
-    const worker = new Worker('./worker.js');
+    // const worker = new Worker('./worker.js');
+
+    const blobWorkerScript = document.querySelector('#worker').textContent
+    const blob = new Blob([blobWorkerScript], { type: 'text/javascript' })
+    const worker = new Worker(window.URL.createObjectURL(blob))
 
     worker.onmessage = (e) => {
       console.log('主线程收到worker线程消息：', e);

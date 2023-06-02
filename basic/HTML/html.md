@@ -162,3 +162,21 @@
   // 还可以同时加载多个脚本
   importScripts('script1.js', 'script2.js');
 ```
+```txt
+  内嵌worker： 除了通过引入js文件的方式，还可以通过window.URL.createObjectURL()创建URL对象，创建内嵌的worker.
+```
+
+```html
+  <!--  这段代码不会被 JS 引擎直接解析，因为类型是 'javascript/worker' -->
+  <script id="worker" type="javascript/worker">
+    this.addEventListener('message', (e) => { // Web Worker 的执行上下文名称是 self，无法调用主线程的 window 对象的
+      console.log('wokerEvent', self, e);
+      postMessage(`Blob worker线程接收到的消息：：：${e.data}`)
+    })
+  </script>
+  <script>
+      const blobWorkerScript = document.querySelector('#worker').textContent
+      const blob = new Blob([blobWorkerScript], { type: 'text/javascript' })
+      const worker = new Worker(window.URL.createObjectURL(blob))
+  </script>
+```
