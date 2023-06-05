@@ -150,7 +150,7 @@
 
   // constants.js
   const foo = "变量";
-
+ 
   function getAge() {
     return 25;
   }
@@ -159,7 +159,7 @@
     return "jacky";
   };
 
-  // 还可以同时加载多个脚本
+  // 还可以同时加载多个脚本 
   importScripts('script1.js', 'script2.js');
 ```
 ```txt
