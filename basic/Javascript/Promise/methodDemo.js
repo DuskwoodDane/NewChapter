@@ -26,4 +26,18 @@ const p3 = 100
  */
 // Promise.race([p1, p2, p3]).then((res) => console.log(res)).catch(e => console.log(e))
 
-Promise.allSettled([p1, p2, p3]).then((res) => console.log(res)).catch(e => console.log(e))
+/**
+ * ? allSettled
+ * 1. 接收一个Promise数组, 数组中如有非Promise项, 则此项当做成功
+ * 2. 把每一个Promise的结果, 集合成数组后返回
+ */
+// Promise.allSettled([p1, p2, p3]).then((res) => console.log(res)).catch(e => console.log(e))
+
+
+/**
+ * ? any 与all相反
+ * 1. 接收一个Promise数组, 数组中如有非Promise项, 则此项当做成功
+ * 2. 如果有一个Promise成功, 则返回这个成功结果
+ * 3. 如果所有Promise都失败, 则报错
+ */
+Promise.any([p1, p2, p3]).then((res) => console.log('any', res)).catch(e => console.log(e))
