@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script type="module">
+    import { ref, reactive, mount, computed } from './index.js'
+
+    const App = {
+      $data: null,
+      setup() {
+        let count = ref(0)
+        let time = reactive({ seconds: 0 })
+        let message = computed(() => `get computed: ${count.value + time.seconds}`)
+
+        setInterval(() => {
+          time.seconds++
+        }, 1000)
+
+        setInterval(() => {
+          count.value++
+        }, 1000)
+
+        return {
+          count,
+          time,
+          message
+        }
+      },
+
+      render() {
+        return `
+        <h1>Reactive:</h1>
+        <h3>reactive data: ${this.$data.time.seconds}</h3>
+        <h3>ref data: ${this.$data.count.value}</h3>
+        <h3>computed data: ${1}</h3>
+        `
+      }
+    }
+
+    mount(App, document.querySelector('#app'))
+  </script>
+  <div id="app"></div>
+</body>
+
+</html>

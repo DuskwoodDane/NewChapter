@@ -4,6 +4,7 @@
   参考链接：https://juejin.cn/post/6905294475539513352#heading-2
 
   本地启动node服务器 => 终端进入目标文件夹，然后在终端输入 http-server
+   http-server --cors -p 8080 -o -c-1
    http-server -c-1 （只输入http-server的话，更新了代码后，页面不会同步更新）
 
 ```

@@ -21,3 +21,6 @@
 # vue源码
 <!-- // 格式为 [link text] (url) -->
 [Vue.js 技术揭秘](https://github.com/rhymedys/vue-analysis/tree/master)
+[Vue.js](https://github1s.com/vuejs/vue)
+[虚拟dom参考-snabbdom](https://github.com/snabbdom/snabbdom)
+[snabbdom中文文档](https://github.com/snabbdom/snabbdom/blob/HEAD/README-zh_CN.md)
