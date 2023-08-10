@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    #betby {
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <script src="https://url.sptpub.com/bt-renderer.min.js"></script> -->
+  <script src="https://ui.invisiblesport.com/bt-renderer.min.js"></script>
+
+  <div id="betby"></div>
+
+  <script>
+    console.log('window==', BTRenderer)
+    const bt = new BTRenderer().initialize({
+      target: document.querySelector('#betby'),
+      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOj',
+      brand_id: '2295647610083610624',
+      isDemo: true
+    })
+
+    console.log('bt==', bt)
+  </script>
+</body>
+
+</html>

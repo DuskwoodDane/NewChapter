@@ -24,3 +24,7 @@
 [Vue.js](https://github1s.com/vuejs/vue)
 [虚拟dom参考-snabbdom](https://github.com/snabbdom/snabbdom)
 [snabbdom中文文档](https://github.com/snabbdom/snabbdom/blob/HEAD/README-zh_CN.md)
+
+# SSR项目练习
+https://github.com/wodb/Vue-SSR-Demo
+

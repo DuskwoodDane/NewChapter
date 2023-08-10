@@ -36,7 +36,7 @@ class MyPromise {
       // 执行传进来的函数
       executor(this.resolve, this.reject);
     } catch (e) {
-      // 捕捉到错误及直接执行reject
+      // 捕捉到错误及直接执行reject 
       this.reject(e)
     }
 
