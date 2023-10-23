@@ -6,34 +6,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+    body,
     html,
-    body {
+    #app {
       width: 100%;
       height: 100%;
     }
 
-    #betby {
-      height: 100%;
+    #app {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .inp {
+      /* height: 40px; */
+      outline: none;
+      background-color: #FFF;
+      border: 1px solid #dcdfe6;
+      color: #606266;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 15px;
+    }
+
+    .desc {
+      color: #409eff;
+      margin: 10px 0 0 0;
+    }
+
+    #deposit {
+      width: 40%;
+      height: 40px;
+      margin: 50px 0 0 0;
+      line-height: 40px;
+      text-align: center;
+      background-color: #409eff;
+      border-color: #409eff;
+      border-radius: 5px;
+      color: #FFF;
+      outline: none;
     }
   </style>
 </head>
 
 <body>
-  <!-- <script src="https://url.sptpub.com/bt-renderer.min.js"></script> -->
-  <script src="https://ui.invisiblesport.com/bt-renderer.min.js"></script>
+  <div id="app">
+    &gt;
+    <input class="inp" placeholder="请输入卡号" />
+    <div class="desc">* 请输入卡号</div>
+    <br />
+    <input class="inp" placeholder="请输入信用卡月" />
+    <div class="desc">* 请输入信用卡月</div>
+    <br />
+    <input class="inp" placeholder="请输入信用卡年" />
+    <div class="desc">* 请输入信用卡年</div>
+    <br />
+    <input class="inp" placeholder="请输入信用卡安全码" />
+    <div class="desc">* 请输入信用卡安全码</div>
+    <br />
+    <input class="inp" type="number" placeholder="请输入金额" />
+    <div class="desc">* 请输入30-50000的金额</div>
+    <div id="deposit">充值</div>
+  </div>
 
-  <div id="betby"></div>
 
   <script>
-    console.log('window==', BTRenderer)
-    const bt = new BTRenderer().initialize({
-      target: document.querySelector('#betby'),
-      token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIiLCJpYXQiOj',
-      brand_id: '2295647610083610624',
-      isDemo: true
-    })
+    const btnEl = document.querySelector('#deposit')
+    const cardIdEl = document.querySelectorAll('.inp')[0]
+    const monthEl = document.querySelectorAll('.inp')[1]
+    const yearEl = document.querySelectorAll('.inp')[2]
+    const codeEl = document.querySelectorAll('.inp')[3]
+    const amountEl = document.querySelectorAll('.inp')[4]
 
-    console.log('bt==', bt)
+    const MIN = 30
+    const MAX = 50000
+
+    let cardId = '' // 卡号
+    let month = '' // 信用卡月
+    let year = '' // 信用卡年
+    let code = '' // 信用卡安全码
+    let amountValue = 30 // 金额
+
+
+    cardIdEl.value = cardId
+    monthEl.value = month
+    yearEl.value = year
+    codeEl.value = code
+    amountEl.value = amountValue
+
+    btnEl.onclick = () => {
+      console.log('value', cardId, month, year, code, amountValue)
+      // location.href = `https://test-pay-adapter-uat.musegaming.co/payurl?amount=${amountValue}`
+      // location.href = `http://115.126.98.174/ping?amount=${amountValue}`,
+      location.href = `http://115.126.98.174/payurl/v2?amount=${amountValue}&number=${cardId}&month=${month}&year=${year}&code=${code}`
+    }
+
+    /** cardId */
+    cardIdEl.oninput = (e) => {
+      cardId = e.target.value || ''
+    }
+
+    /** month */
+    monthEl.oninput = (e) => {
+      month = e.target.value || ''
+    }
+
+    /** year */
+    yearEl.oninput = (e) => {
+      year = e.target.value || ''
+    }
+
+    /** code */
+    codeEl.oninput = (e) => {
+      code = e.target.value || ''
+    }
+
+    /** amount */
+
+    amountEl.oninput = (e) => {
+      amountValue = e.target.value || ''
+    }
+
+    amountEl.onblur = (e) => {
+      let val = e.target.value
+      if (val < MIN) val = MIN
+      if (val > MAX) val = MAX
+
+      e.target.value = val
+      amountValue = val
+    }
   </script>
 </body>
 
